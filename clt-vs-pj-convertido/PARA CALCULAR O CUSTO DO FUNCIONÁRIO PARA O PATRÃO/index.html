@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salário Bruto</title>
+</head>
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <div class="w-full max-w-md bg-white p-6 rounded-md shadow-md">
+            <h1 class="text-2xl font-bold mb-4 text-center">Calculadora de Salário Bruto</h1>
+            <form class="bg-white p-6 rounded-md shadow-md flex flex-col">
+                <h4 class="text-lg mb-4">Por conta das divergências dos valores da contribuição sindical não posso incluí-la no cálculo, mas fique atento, ela custa de 1 dia de trabalho até 12% do seu salário</h4>
+
+                <label class="mb-2">
+                    Salário Líquido:
+                    <input type="number" id="net-salary" value="" class="border rounded-md p-2" />
+                </label>
+
+                <label class="mb-2">
+                    Porcentagem dos seus vales em relação ao seu salário bruto:
+                    <input type="number" id="voucher-value" value="" class="border rounded-md p-2" />
+                </label>
+
+            </form>
+
+            <div id="result-container" class="mt-4">
+                <!-- Os resultados serão inseridos aqui pelo JavaScript -->
+            </div>
+
+            <ul class="mt-4 p-4 bg-gray-50 rounded-lg">
+                <li>
+                    Salário Bruto:
+                    <p id="gross"></p>
+                </li>
+                <li>
+                    Desconto do FGTS:
+                    <p id="fgts"></p>
+                </li>
+                <li>
+                    Desconto do INSS:
+                    <p id="inss"></p>
+                </li>
+                <li>Desconto do IR:
+                    <p id="ir"></p>
+                </li>
+                <li>Desconto do Voucher:
+                    <p id="theVoucherValue"></p>
+                </li>
+                <li>
+                    Desconto do INSS Patronal:
+                    <p id="inssPatronal"></p>
+                </li>
+                <li>
+                    Custo do seu décimo terceiro:
+                    <p id="decimoTerceiro"></p>
+                </li>
+                <li>
+                    Custo das suas férias:
+                    <p id="vacations"></p>
+                </li>
+                <li>
+                    O seu custo para o patrão é:
+                    <p id="bossCost"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>

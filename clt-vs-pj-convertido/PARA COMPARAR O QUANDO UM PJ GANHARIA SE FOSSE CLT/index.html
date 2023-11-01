@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salário PJ para CLT</title>
+</head>
+<body>
+    <h1 class="text-2xl font-bold mb-4 text-center">Calculadora de Salário PJ para CLT</h1>
+    <h4 class="text-lg mb-4">Por conta das divergências dos valores da contribuição sindical não posso incluí-la no cálculo, mas fique atento, ela custa de 1 dia de trabalho até 12% do seu salário</h4>
+    <form class="space-y-4">
+        <label class="block">
+            <span class="text-gray-700">Salário PJ:</span>
+            <input type="number" id="boss-cost" class="border rounded-md p-2 w-full" />
+        </label>
+        <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Calcular</button>
+    </form>
+    <!-- <div id="result-container" class="mt-4"></div> -->
+    <ul class="mt-4 p-4 bg-gray-50 rounded-lg">
+        <li>
+            Salário Líquido:
+            <p id="net"></p>
+        </li>
+        <li>
+            Salário Bruto:
+            <p id="gross"></p>
+        </li>
+        <li>
+            Desconto do FGTS:
+            <p id="fgts"></p>
+        </li>
+        <li>
+            Desconto do INSS:
+            <p id="inss"></p>
+        </li>
+        <li>Desconto do IR:
+            <p id="ir"></p>
+        </li>
+        <li>
+            Desconto do INSS Patronal:
+            <p id="inssPatronal"></p>
+        </li>
+        <li>
+            Custo do seu décimo terceiro:
+            <p id="decimoTerceiro"></p>
+        </li>
+        <li>
+            Custo das suas férias:
+            <p id="vacations"></p>
+        </li>
+        <li>
+            O seu custo para o patrão é:
+            <p id="bossCost"></p>
+        </li>
+    </ul>
+    <script src="./index.js"></script>
+</body>
+</html>
