@@ -127,10 +127,10 @@ const NetToGross = () => {
             posso incluí-la no cálculo, mas fique atento, ela custa de 1 dia de
             trabalho até 12% do seu salário
           </h4>
-          <h4 className="text-xs mb-4">
-            Devido a trâmites na lei, considerarei que os vouchers não possuem
+          {/* <h4 className="text-xs mb-4">
+            Devido a trâmites na lei, considerare que os vouchers não possuem
             imposto, mas alguns possuem desconto de IR dependendo da modalidade e da ausência de coparticipação
-          </h4>
+          </h4> */}
           <label className="mb-2 flex flex-col">
             Salário Líquido:
             <input
