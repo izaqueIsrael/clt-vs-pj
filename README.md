@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CLT VS PJ
 
-## Getting Started
+Esse projeto foi feito por mim no ano passado, e agora fiz uma pequena atualização gráfica e de valores nele.
 
-First, run the development server:
+<p align="center">
+<img src="https://raw.githubusercontent.com/izaqueIsrael/images/main/clt-vs-pj.png" alt="CLT-VS-PJ">
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Funcionalidades
+- Calcular salário líquido a partir do bruto
+- Calcular salário bruto a partir do líquido
+- Calcular salário CLT a patir de um salário PJ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Se quiser testa-lo, clique neste [link](https://clt-vs-pj.vercel.app).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Instalação
 
-## Learn More
+Primeiramente, certifique-se de ter o Node.js 20+ instalado em seu computador, pode instala-lo através desse [link](https://nodejs.org/en/download/package-manager/current).
 
-To learn more about Next.js, take a look at the following resources:
+O segundo requisito é ter o Git instalado em seu computador, pode instala-lo através desse [link](https://git-scm.com/downloads)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Com o Node.js e Git instalados em seu computador, clone o repositório em sua máquia com esse comando:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    https://github.com/izaqueIsrael/clt-vs-pj.git
 
-## Deploy on Vercel
+Acesse o diretório do seu projeto, abra o terminal no diretório do seu projeto e digite o comando:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    npm i
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Após a instalação, utilize o comando:
+
+    npm start
+
+Agora acesse a seguinte a URL e acesse o projeto da sua máquina local:
+
+    http://localhost:3000 
+
+# Autor
+
+    Izaque
