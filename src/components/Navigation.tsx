@@ -11,7 +11,7 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveComponent }) => {
       <li className="w-1/3 flex">
         <button
           onClick={() => setActiveComponent("netToGross")}
-          className="text-md font-bold font-sans p-1 text-center"
+          className="text-md font-bold font-sans p-1 text-center text-gray-300"
         >
           Líquido para Bruto
         </button>
@@ -19,15 +19,15 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveComponent }) => {
       <li className="w-1/3 flex justify-center border-gray-400 border-r border-l ">
         <button
           onClick={() => setActiveComponent("pjSalaryComparative")}
-          className="text-md text-center font-bold font-sans p-1"
+          className="text-md text-center font-bold font-sans p-1 text-gray-300"
         >
-          PJ vs CLT
+          Custo do Funcionário
         </button>
       </li>
       <li className="w-1/3 flex">
         <button
           onClick={() => setActiveComponent("grossToNet")}
-          className="text-md font-bold font-sans p-1 text-center"
+          className="text-md font-bold font-sans p-1 text-center text-gray-300"
         >
           Bruto para Líquido
         </button>

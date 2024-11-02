@@ -113,7 +113,7 @@ const NetToGross = () => {
   return (
     <div className="flex justify-center bg-gray-100 p-4 rounded-lg">
       <div className="p-6 max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-4">Salário Líquido para o Custo do Patrão</h1>
+        <h1 className="text-2xl font-bold mb-4">Custo do Patrão</h1>
         <div className="mb-4">
           <label className="block text-gray-700">Salário Líquido:</label>
           <input
@@ -169,6 +169,10 @@ const NetToGross = () => {
               <tr>
                 <td className="border border-gray-300 px-4 py-2">Custo das Férias</td>
                 <td className="border border-gray-300 px-4 py-2">R$ {vacationCost?.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td className="border border-gray-300 px-4 py-2">Imposto sobre a Folha (20%)</td>
+                <td className="border border-gray-300 px-4 py-2">R$ {(grossSalary ? grossSalary * 0.2 : 0).toFixed(2)}</td>
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2 font-bold">Custo Total para o Patrão</td>

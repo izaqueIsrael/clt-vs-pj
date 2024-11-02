@@ -5,6 +5,8 @@ const GrossToNet = () => {
   const [netSalary, setNetSalary] = useState<number | null>(null);
   const [INSS, setINSS] = useState<number | null>(null);
   const [IR, setIR] = useState<number | null>(null);
+  const [voucherValue, setVoucherValue] = useState<string>("");
+  const [voucherCost, setVoucherCost] = useState<number | null>(null);
 
   const calculateINSS = (gross: number): number => {
     let inss = 0;
@@ -60,6 +62,15 @@ const GrossToNet = () => {
     }
   };
 
+  const handleVoucherInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value)) {
+      setVoucherValue(value);
+      const parsedVoucherValue = parseFloat(value) || 0;
+      setVoucherCost(parsedVoucherValue * 1.1); // Custo com 10% adicional
+    }
+  };
+
   return (
     <div className="flex justify-center bg-gray-100 p-4 rounded-lg">
       <div className="p-6 max-w-md w-full">
@@ -70,6 +81,15 @@ const GrossToNet = () => {
             type="text"
             value={grossSalary}
             onChange={handleInputChange}
+            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Valor Total dos Vales:</label>
+          <input
+            type="text"
+            value={voucherValue}
+            onChange={handleVoucherInputChange}
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
@@ -95,6 +115,10 @@ const GrossToNet = () => {
                 <tr>
                   <td className="border border-gray-300 px-4 py-2">Salário Líquido</td>
                   <td className="border border-gray-300 px-4 py-2">R$ {netSalary?.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2">Custo dos Vales (com 10%)</td>
+                  <td className="border border-gray-300 px-4 py-2">R$ {voucherCost?.toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
