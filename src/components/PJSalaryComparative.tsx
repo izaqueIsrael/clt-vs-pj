@@ -113,7 +113,7 @@ const NetToGross = () => {
   return (
     <div className="flex justify-center bg-gray-100 p-4 rounded-lg">
       <div className="p-6 max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-4">Custo do Patrão</h1>
+        <h1 className="text-2xl font-bold mb-4">Custo do Funcionário</h1>
         <div className="mb-4">
           <label className="block text-gray-700">Salário Líquido:</label>
           <input
