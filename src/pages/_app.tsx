@@ -10,7 +10,7 @@ class App extends React.Component<AppProps> {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <main className="bg-gray-500 min-h-screen">
+      <main className="bg-gray-900 min-h-screen">
         <Component {...pageProps} />
       </main>
     );

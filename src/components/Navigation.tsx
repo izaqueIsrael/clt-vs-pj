@@ -7,7 +7,7 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ setActiveComponent }) => {
   return (
-    <ul className="flex mb-4 gap-2 p-2 bg-gray-600 rounded-full md:mb-0">
+    <ul className="flex mb-4 gap-2 p-2 bg-gray-600 rounded-md md:mb-0">
       <li className="w-1/3 flex">
         <button
           onClick={() => setActiveComponent("netToGross")}

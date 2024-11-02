@@ -3,56 +3,43 @@ import React, { useState, useEffect, ChangeEvent, useCallback } from "react";
 const GrossToNet = () => {
   const [grossSalary, setGrossSalary] = useState<string>("");
   const [netSalary, setNetSalary] = useState<number | null>(null);
-  const [FGTS, setFGTS] = useState<number | null>(null);
   const [INSS, setINSS] = useState<number | null>(null);
   const [IR, setIR] = useState<number | null>(null);
-  const [INSSPatronal, setINSSPatronal] = useState<number | null>(null);
-  const [bossCost, setBossCost] = useState<number | null>(null);
 
-  const getINSSDetails = (
-    gross: number
-  ): { INSSaliquot: number; INSSDeduction: number } => {
-    if (gross <= 1412.0) return { INSSaliquot: 0.075, INSSDeduction: 0 };
-    if (gross <= 2666.68) return { INSSaliquot: 0.09, INSSDeduction: 21.18 };
-    if (gross <= 4000.03) return { INSSaliquot: 0.12, INSSDeduction: 101.18 };
-    if (gross <= 7786.02) return { INSSaliquot: 0.14, INSSDeduction: 181.18 };
-    throw new Error("Salário bruto fora do intervalo válido");
+  const calculateINSS = (gross: number): number => {
+    let inss = 0;
+    if (gross <= 1412.0) {
+      inss = gross * 0.075;
+    } else if (gross <= 2666.68) {
+      inss = 1412 * 0.075 + (gross - 1412) * 0.09;
+    } else if (gross <= 4000.03) {
+      inss = 1412 * 0.075 + (2666.68 - 1412) * 0.09 + (gross - 2666.68) * 0.12;
+    } else if (gross <= 7786.02) {
+      inss = 1412 * 0.075 + (2666.68 - 1412) * 0.09 + (4000.03 - 2666.68) * 0.12 + (gross - 4000.03) * 0.14;
+    } else {
+      inss = 713.10; // Teto máximo de contribuição do INSS
+    }
+    return inss;
   };
 
-  const getIRDetails = (
-    gross: number,
-    INSSvalue: number
-  ): { IRaliquot: number; IRDeduction: number } => {
-    const base = gross - INSSvalue;
-    if (base <= 2259.20) return { IRaliquot: 0.0, IRDeduction: 0 };
-    if (base <= 2826.65) return { IRaliquot: 0.075, IRDeduction: 169.44 };
-    if (base <= 3751.05) return { IRaliquot: 0.15, IRDeduction: 381.44 };
-    if (base <= 4664.68) return { IRaliquot: 0.225, IRDeduction: 662.77 };
-    return { IRaliquot: 0.275, IRDeduction: 896.00 };
+  const getIRDetails = (base: number) => {
+    if (base <= 2259.20) return { aliquot: 0.0, deduction: 0 };
+    if (base <= 2826.65) return { aliquot: 0.075, deduction: 169.44 };
+    if (base <= 3751.05) return { aliquot: 0.15, deduction: 381.44 };
+    if (base <= 4664.68) return { aliquot: 0.225, deduction: 662.77 };
+    return { aliquot: 0.275, deduction: 896.00 };
   };
 
   const calculateNetSalary = useCallback((gross: number): void => {
-    let INSSvalue = 0;
-    if (gross > 7786.02) {
-      const { INSSaliquot, INSSDeduction } = getINSSDetails(7786.02);
-      INSSvalue = 7786.02 * INSSaliquot - INSSDeduction;
-    } else {
-      const { INSSaliquot, INSSDeduction } = getINSSDetails(gross);
-      INSSvalue = gross * INSSaliquot - INSSDeduction;
-    }
+    const INSSvalue = calculateINSS(gross);
+    const baseIR = gross - INSSvalue;
+    const { aliquot: IRaliquot, deduction: IRDeduction } = getIRDetails(baseIR);
+    const IRvalue = baseIR * IRaliquot - IRDeduction;
+    const netSalary = gross - INSSvalue - IRvalue;
 
-    const { IRaliquot, IRDeduction } = getIRDetails(gross, INSSvalue);
-    const IRvalue = (gross - INSSvalue) * IRaliquot - IRDeduction;
-
-    const FGTSvalue = gross * 0.08;
-
-    const netSalary = gross - INSSvalue - IRvalue - FGTSvalue;
     setNetSalary(netSalary);
-    setFGTS(FGTSvalue);
     setIR(IRvalue);
     setINSS(INSSvalue);
-    setINSSPatronal(gross * 0.2);
-    setBossCost(gross * 1.2);
   }, []);
 
   useEffect(() => {
@@ -61,15 +48,11 @@ const GrossToNet = () => {
       calculateNetSalary(parsedGrossSalary);
     } else {
       setNetSalary(0);
-      setFGTS(null);
       setIR(null);
       setINSS(null);
-      setINSSPatronal(null);
-      setBossCost(null);
     }
   }, [grossSalary, calculateNetSalary]);
 
-  // Handler for input change
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) {
@@ -82,7 +65,7 @@ const GrossToNet = () => {
       <div className="p-6 max-w-md w-full">
         <h1 className="text-2xl font-bold mb-4">Salário Bruto para o Líquido</h1>
         <div className="mb-4">
-          <label className="block text-gray-700">Gross Salary:</label>
+          <label className="block text-gray-700">Salário Bruto:</label>
           <input
             type="text"
             value={grossSalary}
@@ -90,22 +73,32 @@ const GrossToNet = () => {
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
-        <div className="mt-4 flex flex-col justify-center">
-          <h2 className="block text-gray-700">Net Salary:</h2>
-          <div className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm">
-            {netSalary !== null && (
-              <ul className="rounded-lg flex flex-col gap-1">
-                <li>
-                  Salário Líquido:{" "}
-                  <span className="font-bold">R$ {netSalary.toFixed(2)}</span>
-                </li>
-                <li>Desconto do FGTS:<span className="font-bold">R$ {FGTS?.toFixed(2)}</span> </li>
-                <li>Desconto do INSS:<span className="font-bold">R$ {INSS?.toFixed(2)}</span> </li>
-                <li>Desconto do IR: <span className="font-bold">R$ {IR?.toFixed(2)}</span></li>
-                <li>Custo do Patrão: <span className="font-bold">R$ {bossCost?.toFixed(2)}</span> </li>
-              </ul>
-            )}
-          </div>
+        <div className="mt-4">
+          <h2 className="block text-gray-700">Salário Detalhado:</h2>
+          {netSalary !== null && (
+            <table className="table-auto w-full mt-2 border-collapse border border-gray-300">
+              <thead>
+                <tr>
+                  <th className="border border-gray-300 px-4 py-2">Descrição</th>
+                  <th className="border border-gray-300 px-4 py-2">Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2">Desconto do INSS</td>
+                  <td className="border border-gray-300 px-4 py-2">R$ {INSS?.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2">Desconto do IR</td>
+                  <td className="border border-gray-300 px-4 py-2">R$ {IR?.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2">Salário Líquido</td>
+                  <td className="border border-gray-300 px-4 py-2">R$ {netSalary?.toFixed(2)}</td>
+                </tr>
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>
